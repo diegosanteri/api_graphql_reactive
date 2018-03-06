@@ -1,40 +1,44 @@
 package br.com.santeri.service;
 
+import br.com.santeri.model.Author;
+import br.com.santeri.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.santeri.model.Author;
-import br.com.santeri.repository.AuthorRepository;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorService {
-	
-	
-	private AuthorRepository authorRepository;
+
+	private final AuthorRepository authorRepository;
 	
 	@Autowired
-	public AuthorService(AuthorRepository authorRepository) {
+	public AuthorService(final AuthorRepository authorRepository) {
+
 		this.authorRepository = authorRepository;
 	}
 	
-	public Author findOne(Long id) {
+	public Author findOne(final String id) {
 		
-		return null;
+		return authorRepository.findById(id).block();
 	}
 
-	public Iterable<Author> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Author> findAll() {
+
+		return authorRepository.findAll()
+									.toStream()
+									.collect(Collectors.toList());
 	}
 
 	public Long count() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return authorRepository.count().block();
 	}
 
-	public Author save(Author author) {
+	public Author save(final Author author) {
 		
-		return author;
+		return authorRepository.save(author).block();
 		
 	}
 

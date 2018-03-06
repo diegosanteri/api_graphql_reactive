@@ -1,20 +1,23 @@
 package br.com.santeri.model;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.io.Serializable;
 
 @Data
 @Builder(builderClassName="Builder")
-@JsonDeserialize(builder = Author.Builder.class) 
+@JsonDeserialize(builder = Author.Builder.class)
 @Document
-public class Author {
-	
-    private Long id;
-    private String firstName;
-    private String lastName;
+@AllArgsConstructor
+public class Author implements Serializable {
+
+    @Id
+    private final String id;
+    private final String firstName;
+    private final String lastName;
 }

@@ -1,28 +1,30 @@
 package br.com.santeri.resolver.query;
 
-import java.util.List;
-
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-
 import br.com.santeri.model.Book;
 import br.com.santeri.repository.BookRepository;
+import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class BookQuery implements GraphQLQueryResolver {
 
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
-    public BookQuery(BookRepository bookRepository) {
+    public BookQuery(final BookRepository bookRepository) {
     	
         this.bookRepository = bookRepository;
     }
 
-    public List<Book> findAllBooks() {
+    public Iterable<Book> findAllBooks() {
     	
-        return bookRepository.findAll();
+        return bookRepository.findAll()
+                                .toStream()
+                                .collect(Collectors.toList());
     }
 
     public Long countBooks() {
     	
-        return bookRepository.count();
+        return bookRepository.count().block();
     }
 }

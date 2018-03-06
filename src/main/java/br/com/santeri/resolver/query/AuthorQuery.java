@@ -1,16 +1,16 @@
 package br.com.santeri.resolver.query;
 
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-
 import br.com.santeri.model.Author;
 import br.com.santeri.service.AuthorService;
-import br.com.santeri.service.BookService;
+import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+
+import java.util.List;
 
 public class AuthorQuery implements GraphQLQueryResolver {
 
-    private AuthorService authorService;
+    private final AuthorService authorService;
 
-    public AuthorQuery(AuthorService authorService, BookService bookService) {
+    public AuthorQuery(final AuthorService authorService) {
         this.authorService = authorService;
     }
 

@@ -1,8 +1,8 @@
 package br.com.santeri.repository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
 import br.com.santeri.model.Author;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 
-public interface AuthorRepository extends MongoRepository<Author, String> {
+public interface AuthorRepository extends ReactiveMongoRepository<Author, String> {
 	
 }

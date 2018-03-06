@@ -1,36 +1,34 @@
 package br.com.santeri.resolver.mutation;
 
-import com.coxautodev.graphql.tools.GraphQLMutationResolver;
-
-import br.com.santeri.context.exception.BookNotFoundException;
+import br.com.santeri.model.Author;
 import br.com.santeri.model.Book;
+import br.com.santeri.service.AuthorService;
 import br.com.santeri.service.BookService;
+import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 
 public class BookMutation implements GraphQLMutationResolver {
 
-    private BookService bookService;
+    private final AuthorService authorService;
+    private final BookService bookService;
 
-    public BookMutation(BookService bookService) {
+    public BookMutation(final AuthorService authorService, final BookService bookService) {
+        this.authorService = authorService;
         this.bookService = bookService;
     }
 
-    public Book newBook(String title, String isbn, Integer pageCount, Long authorId) {
-    	
-    	return bookService.save(Book.builder().build());
+    public Book newBook(final String title, final String isbn, final String authorId) {
+
+        final Author author = this.authorService.findOne(authorId);
+
+    	return bookService.save(Book.builder()
+                                    .title(title)
+                                    .isbn(isbn)
+                                    .author(author)
+                                    .build());
     }
 
-    public boolean deleteBook(Long id) {
-    	bookService.delete(id);
-        return true;
-    }
+    public Boolean deleteBook(final String id) {
 
-    public Book updateBookPageCount(Integer pageCount, Long id) {
-        Book book = bookService.findOne(id);
-        if(book == null) {
-            throw new BookNotFoundException("The book to be updated was found", id);
-        }
-        book.setPageCount(pageCount);
-        bookService.save(book);
-        return book;
+        return bookService.delete(id);
     }
 }

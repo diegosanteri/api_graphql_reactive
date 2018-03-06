@@ -16,19 +16,19 @@ public class BookSchema {
 
     @Bean
     @Autowired
-    public BookResolver bookResolver(AuthorService authorService) {
+    public BookResolver bookResolver(final AuthorService authorService) {
         return new BookResolver(authorService);
     }
 
     @Bean
     @Autowired
-    public BookQuery bookQuery(BookRepository bookRepository) {
+    public BookQuery bookQuery(final BookRepository bookRepository) {
         return new BookQuery(bookRepository);
     }
 
     @Bean
     @Autowired
-    public BookMutation bookMutation(AuthorService authorService, BookService bookService) {
-        return new BookMutation(bookService);
+    public BookMutation bookMutation(final AuthorService authorService, final BookService bookService) {
+        return new BookMutation(authorService, bookService);
     }
 }

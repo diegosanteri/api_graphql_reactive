@@ -8,13 +8,14 @@ import br.com.santeri.service.AuthorService;
 
 public class BookResolver implements GraphQLResolver<Book> {
 
-    private AuthorService authorService;
+    private final AuthorService authorService;
 
-    public BookResolver(AuthorService authorService) {
+    public BookResolver(final AuthorService authorService) {
         this.authorService = authorService;
     }
 
-    public Author getAuthor(Book book) {
+    public Author getAuthor(final Book book) {
+
         return authorService.findOne(book.getAuthor().getId());
     }
 }

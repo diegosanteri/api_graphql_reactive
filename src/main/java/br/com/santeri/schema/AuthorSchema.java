@@ -14,13 +14,13 @@ public class AuthorSchema {
     
     @Bean
     @Autowired
-    public AuthorQuery authorQuery(AuthorService authorService, BookService bookService) {
-        return new AuthorQuery(authorService, bookService);
+    public AuthorQuery authorQuery(final AuthorService authorService, final BookService bookService) {
+        return new AuthorQuery(authorService);
     }
 
     @Bean
     @Autowired
-    public AuthorMutation authorMutation(AuthorService authorService) {
+    public AuthorMutation authorMutation(final AuthorService authorService) {
         return new AuthorMutation(authorService);
     }
 }

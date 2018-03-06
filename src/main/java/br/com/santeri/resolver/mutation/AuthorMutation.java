@@ -7,14 +7,17 @@ import br.com.santeri.service.AuthorService;
 
 public class AuthorMutation implements GraphQLMutationResolver {
 	
-    private AuthorService authorService;
+    private final AuthorService authorService;
 
-    public AuthorMutation(AuthorService authorService) {
+    public AuthorMutation(final AuthorService authorService) {
         this.authorService = authorService;
     }
 
-    public Author newAuthor(String firstName, String lastName) {
+    public Author newAuthor(final String firstName, final String lastName) {
     	
-        return authorService.save(Author.builder().build());
+        return authorService.save(Author.builder()
+                                        .firstName(firstName)
+                                        .lastName(lastName)
+                                        .build());
     }
 }
