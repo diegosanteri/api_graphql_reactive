@@ -6,15 +6,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.util.List;
 
 @Data
 @Builder(builderClassName="Builder")
-@JsonDeserialize(builder = Author.Builder.class) 
+@JsonDeserialize(builder = User.Builder.class)
 @Document
-public class Author {
+public class User {
 	
-    private Long id;
+    private String id;
+    private String email;
     private String firstName;
     private String lastName;
+    private String password;
+    private List<User> users;
 }
